@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[209]:
+# In[226]:
 
 from bs4 import BeautifulSoup
 import requests
@@ -17,17 +17,17 @@ from matplotlib import pyplot as plt
 get_ipython().magic('matplotlib inline')
 
 
-# In[221]:
+# In[227]:
 
 #parameters
 project_folder = '/Users/alexiseggermont/Dropbox (Personal)/01. Personal/04. Models/30. Bike thieves must die/'
 weekdays = {0:'1 - Monday',1:'2 - Tuesday',2:'3 - Wednesday',3:'4 - Thursday',4:'5 - Friday',5:'6 - Saturday',6:'7 - Sunday'}
 distance = 100 #searches for bikes in that radius from your IP's location, in km
 pagesToDownload = 5 #classified are ranked with most recently posted first. Each page contains 35 classifieds.
-filename = 'list'
+filename = 'list' #name of Excel and pickle file produced
 
 
-# In[222]:
+# In[228]:
 
 def findAllItemsInPage(url):
     page = requests.get(url)
@@ -36,7 +36,7 @@ def findAllItemsInPage(url):
     return mydivs
 
 
-# In[223]:
+# In[229]:
 
 def getDateForOneItem(item):
     d={}
@@ -70,7 +70,7 @@ def getDateForOneItem(item):
     return d
 
 
-# In[224]:
+# In[230]:
 
 def savedata(filename):
     try:
@@ -86,10 +86,10 @@ def savedata(filename):
     print(str(len(df))+" bike ads downloaded overall")
 
 
-# In[225]:
+# In[231]:
 
 not_suspect_ads = [] #Create a Not suspect folder where you can dump all pictures that you verified aren't your bike
-os.chdir(project_folder+"Photos/Not suspect/") #Create a Suspect folder where you can dump all pictures that look like your bike
+os.chdir(project_folder+"Photos/Not_suspect/") #Create a Suspect folder where you can dump all pictures that look like your bike
 for file in glob.glob("*.jpg"):
     not_suspect_ads.append(file)
 
@@ -114,7 +114,7 @@ for i in range(pagesToDownload):
 savedata(filename)
 
 
-# In[219]:
+# In[232]:
 
 #Stats just for fun
 df['listed_datetime'] = pd.to_datetime(df['listed_datetime'])
